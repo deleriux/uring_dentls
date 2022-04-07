@@ -1,0 +1,22 @@
+#!/usr/bin/env bpftrace
+
+BEGIN {
+  printf("Monitoring unlink requests. Press ctrl+c to finish..\n");
+}
+
+kfunc:vfs_unlink
+{
+  $inode = args->dentry->d_inode->i_ino;
+  @un[cpu] = nsecs;
+}
+
+kretfunc:vfs_unlink
+/@un[cpu]/
+{
+  if (@un[cpu]) {
+      $dur = nsecs - @un[cpu];
+      @unlink_latency_us = hist($dur/1000);
+      delete(@un[cpu]);
+  }
+  @calls_per_cpu[cpu] = count();
+}
