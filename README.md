@@ -20,7 +20,7 @@ There is a submission phase and consumption phase.
 Entries are read from the readdir() call and submitted to the ring until the ring is full.
 The consumption phase processes the results, ultimately until there are no more directory entries left to consume.
 
-Traditionally, one would have to use a niave loop to perform this task, when in a singular thread. (while (1) unlink(...); )
+Traditionally, one would have to use a niave loop to perform this task, when in a singular thread. `while (1) unlink(...);`
 Whilst its possible to emulate this behaviour using pthreads (spawn a thread and a conditional, wait for a pthread_cond_signal or use a work queue) this particular implementation allows for internal kernel optimizations. Also -- submitting system calls itself is a yield point on Linux and you can cause your program to preempt.
 
 IO_uring actually offers a completely unpremptible mechanisms by which a internal kernel thread will scan the ring buffer continually, so you never have to yeild using the syscall io_uring_enter. Very fancy!
