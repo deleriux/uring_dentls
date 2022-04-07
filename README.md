@@ -5,7 +5,7 @@ This is the software posed to answer the serverfault questtion: https://serverfa
 
 Its a good showcase to using both BPF tracing facilities on Linux and the newer IO_Uring subsystem.
 
-io_uring is a pretty revolutionary model on Linux for performing asyncronous work on Linux. It lets you batch various syscalls in a manner not possible before and attempt to make as much of the system calls as you can asyncronous.
+io_uring is a pretty revolutionary model on Linux for performing asyncronous work on Linux. It lets you batch various syscalls in a manner not possible before and attempts to make as many of the system calls asyncronous. Many syscalls, particularly though pertaining to IO yield the CPU in the caller which may not be ideal if there exists other work that can be done immediately.
 
 # Purpose
 
