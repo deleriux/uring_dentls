@@ -14,7 +14,7 @@ As a useful utility, its really limited.
 
 # Implementation
 
-This uses IO_uring and thats the interested part of this program.
+This uses IO_uring which is the interesting part of this program.
 There is a submission phase and consumption phase.
 
 Entries are read from the readdir() call and submitted to the ring until the ring is full.
